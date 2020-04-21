@@ -3,19 +3,32 @@ import Layout from '../layouts/Layout'
 import { Card, Row, Col, Input, Select, Typography } from 'antd';
 
 class Converter extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            valueBtc: 0,
+            valueCur: 0
+        }
+    }
 
     handleChange = (value) => {
         console.log(value)
     }
 
-    handleInputChange = (value) => {
-        console.log(value.target.value)
+    handleInputChangeBTC = (e) => {
+        console.log(e.target.value)
+        this.setState({ valueBtc: e.target.value })
+        // e.target.value = 2222
+        // console.log(e.target.value)
+    }
+
+    handleInputChangeCurrency = (e) => {
+        console.log(e.target.value)
+        this.setState({ valueCur: e.target.value })
     }
 
     render() {
         const { Option } = Select
-
-
 
         return (
             <Layout title="Converter">
@@ -23,9 +36,9 @@ class Converter extends React.Component {
                     <Typography.Paragraph>Bitcoin Calculator tool allows you to convert any amount to and from bitcoin.</Typography.Paragraph>
                     <br />
                     <Row gutter={[24, 24]}>
-                        <Col span={8}><Input size="large" onChange={(e) => { this.handleInputChange(e) }} placeholder="BTC" /></Col>
+                        <Col span={8}><Input size="large" onChange={(e) => { this.handleInputChangeBTC(e) }} placeholder="BTC" value={this.state.valueBtc} /></Col>
                         <Col span={2}>x BTC =</Col>
-                        <Col span={10}><Input size="large" placeholder="Currency Value" /></Col>
+                        <Col span={10}><Input size="large" onChange={(e) => { this.handleInputChangeCurrency(e) }} placeholder="Currency Value" value={this.state.valueCur} /></Col>
                         <Col span={4}>
                             <Select
                                 size="large"
