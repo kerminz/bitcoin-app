@@ -31,9 +31,18 @@ export const fetchDetails = () => {
                 hashrate: responseHashrate.data,
                 diff: responseGetdifficulty.data
             }
-            console.log(responseGetdifficulty)
-
             dispatch({ type: 'FETCH_DETAILS', payload: data })
+        } catch (e) {
+            console.log(e)
+        }
+    }
+}
+
+export const fetchToBtc = (currency, amount) => {
+    return async (dispatch) => {
+        try {
+            const response = await blockchain.get(`/tobtc?currency=${currency}&value=${amount}`)
+            dispatch({ type: 'FETCH_TOBTC', payload: response.data })
         } catch (e) {
             console.log(e)
         }

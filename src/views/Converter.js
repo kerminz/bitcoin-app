@@ -1,6 +1,8 @@
 import React from 'react';
 import Layout from '../layouts/Layout'
+import { connect } from 'react-redux'
 import { Card, Row, Col, Input, Select, Typography } from 'antd';
+import { fetchToBtc } from '../actions/index'
 
 class Converter extends React.Component {
     constructor(props) {
@@ -9,6 +11,12 @@ class Converter extends React.Component {
             valueBtc: 0,
             valueCur: 0
         }
+    }
+
+    componentDidMount() {
+        this.props.fetchToBtc('eur', 100).then((result) => {
+            console.log(this.props.tobtc)
+        })
     }
 
     handleChange = (value) => {
@@ -61,4 +69,10 @@ class Converter extends React.Component {
     }
 }
 
-export default Converter
+const mapPropsToState = (state) => {
+    return {
+        tobtc: state.app.tobtc
+    }
+}
+
+export default connect(mapPropsToState, { fetchToBtc })(Converter)
