@@ -1,7 +1,7 @@
 import React from 'react'
 import 'antd/dist/antd.css'
 import '../styles/layout.css'
-import { Layout, Menu } from 'antd'
+import { Layout, Menu, Typography, Divider } from 'antd'
 import {
     MenuUnfoldOutlined,
     MenuFoldOutlined,
@@ -12,6 +12,7 @@ import {
 import { NavLink, withRouter } from 'react-router-dom';
 
 const { Header, Sider, Content } = Layout;
+const { Title } = Typography;
 
 
 class AppLayout extends React.Component {
@@ -104,6 +105,8 @@ class AppLayout extends React.Component {
                             height: "100vh"
                         }}
                     >
+                        <Title>{this.props.title}</Title>
+                        <Divider />
                         {this.props.children}
                     </Content>
                 </Layout>

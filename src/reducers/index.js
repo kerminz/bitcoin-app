@@ -1,13 +1,16 @@
 import { combineReducers } from 'redux';
 
 const INIT_STATES = {
-    ticker: null
+    ticker: null,
+    details: null
 }
 
 const appReducer = (state = INIT_STATES, action) => {
     switch (action.type) {
         case 'FETCH_TICKER':
             return { ...state, ticker: action.payload }
+        case 'FETCH_DETAILS':
+            return { ...state, details: action.payload }
         default:
             return state
     }
