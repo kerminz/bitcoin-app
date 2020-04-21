@@ -9,6 +9,7 @@ import {
     VideoCameraOutlined,
     UploadOutlined,
 } from '@ant-design/icons';
+import { NavLink, withRouter } from 'react-router-dom';
 
 const { Header, Sider, Content } = Layout;
 
@@ -16,6 +17,31 @@ const { Header, Sider, Content } = Layout;
 class AppLayout extends React.Component {
     state = {
         collapsed: false,
+        selected: ''
+    };
+
+    componentDidMount() {
+        if (window.location.pathname.indexOf('') !== -1) {
+            this.setState({ selected: 'dashboard' });
+        }
+        if (window.location.pathname.indexOf('details') !== -1) {
+            this.setState({ selected: 'details' });
+        }
+        if (window.location.pathname.indexOf('converter') !== -1) {
+            this.setState({ selected: 'converter' });
+        }
+        if (window.location.pathname.indexOf('chart') !== -1) {
+            this.setState({ selected: 'chart' });
+        }
+        if (window.location.pathname.indexOf('wallet') !== -1) {
+            this.setState({ selected: 'wallet' });
+        }
+    }
+
+    onSelect = (item, key, keyPath, selectedKeys, domEvent) => {
+        this.setState({ selected: keyPath });
+        // const to = '/' + keyPath;
+        // history.push(to);
     };
 
     toggle = () => {
@@ -29,18 +55,36 @@ class AppLayout extends React.Component {
             <Layout>
                 <Sider trigger={null} collapsible collapsed={this.state.collapsed} >
                     <div className="logo" />
-                    <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-                        <Menu.Item key="1">
-                            <UserOutlined />
-                            <span>Dashboard</span>
+                    <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} selectedKeys={[this.state.selected]}>
+                        <Menu.Item key="dashboard">
+                            <NavLink to="/">
+                                <UserOutlined />
+                                <span>Dashboard</span>
+                            </NavLink>
                         </Menu.Item>
-                        <Menu.Item key="2">
-                            <VideoCameraOutlined />
-                            <span>Bitcoin Details</span>
+                        <Menu.Item key="details">
+                            <NavLink to="/details">
+                                <VideoCameraOutlined />
+                                <span>Bitcoin Details</span>
+                            </NavLink>
                         </Menu.Item>
-                        <Menu.Item key="3">
-                            <UploadOutlined />
-                            <span>Calculator</span>
+                        <Menu.Item key="converter">
+                            <NavLink to="/converter">
+                                <UploadOutlined />
+                                <span>Converter</span>
+                            </NavLink>
+                        </Menu.Item>
+                        <Menu.Item key="chart">
+                            <NavLink to="/chart">
+                                <UploadOutlined />
+                                <span>Chart</span>
+                            </NavLink>
+                        </Menu.Item>
+                        <Menu.Item key="wallet">
+                            <NavLink to="/wallet">
+                                <UserOutlined />
+                                <span>Wallet</span>
+                            </NavLink>
                         </Menu.Item>
                     </Menu>
                 </Sider>
