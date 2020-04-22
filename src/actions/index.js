@@ -49,10 +49,15 @@ export const fetchToBtc = (currency, amount) => {
     }
 }
 
-export const fetchChartData = () => {
+export const fetchChartData = (mode, timespan) => {
     return async (dispatch) => {
         try {
-            const response = await blockchainChart.get(`n-transactions?timespan=30days&sampled=true&metadata=false&cors=true&format=json`)
+            if (mode == "dailytrans") {
+                var url = `n-transactions?timespan=${timespan}days&sampled=true&metadata=false&cors=true&format=json`
+            } else {
+                var url = `n-transactions-total?timespan=${timespan}days&sampled=true&metadata=false&cors=true&format=json`
+            }
+            const response = await blockchainChart.get(url)
             dispatch({ type: 'FETCH_CHART_DATA', payload: response.data })
         } catch (e) {
             console.log(e)
