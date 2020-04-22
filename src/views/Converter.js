@@ -1,38 +1,66 @@
-import React from 'react';
+import React from 'react'
 import Layout from '../layouts/Layout'
 import { connect } from 'react-redux'
-import { Card, Row, Col, Input, Select, Typography } from 'antd';
+import { Card, Row, Col, Input, Select, Typography } from 'antd'
 import { fetchToBtc } from '../actions/index'
+import validator from 'validator'
 
 class Converter extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             valueBtc: 0,
-            valueCur: 0
+            valueCur: 0,
+            error: "",
+            currency: "",
+            exchangeRate: 0
         }
     }
 
+    handleChange = (value) => {
+        this.updateExchangeRate(value.value)
+    }
+
     componentDidMount() {
-        this.props.fetchToBtc('eur', 100).then((result) => {
-            console.log(this.props.tobtc)
+        this.updateExchangeRate("eur")
+    }
+
+    updateExchangeRate = (currency) => {
+        this.setState({ currency })
+        this.props.fetchToBtc(currency, 1).then((result) => {
+            this.handleInputChangeBTC(undefined, this.state.valueBtc.toString())
+            this.handleInputChangeCurrency(undefined, this.state.valueCur.toString())
         })
     }
 
-    handleChange = (value) => {
-        console.log(value)
+    handleInputChangeBTC = (e, fallbackValue) => {
+        if (e === undefined) {
+            var amount = fallbackValue
+        } else {
+            var amount = e.target.value
+        }
+
+        this.setState({ valueBtc: amount })
+        if (validator.isNumeric(amount)) {
+            const valueCur = amount / this.props.tobtc
+            this.setState({ valueCur: valueCur.toFixed(2), error: "" })
+        } else {
+            this.setState({ error: "Only numeric values allowed" })
+        }
     }
 
-    handleInputChangeBTC = (e) => {
-        console.log(e.target.value)
-        this.setState({ valueBtc: e.target.value })
-        // e.target.value = 2222
-        // console.log(e.target.value)
-    }
-
-    handleInputChangeCurrency = (e) => {
-        console.log(e.target.value)
-        this.setState({ valueCur: e.target.value })
+    handleInputChangeCurrency = (e, fallbackValue) => {
+        if (e === undefined) {
+            var amount = fallbackValue
+        } else {
+            var amount = e.target.value
+        }
+        this.setState({ valueCur: amount })
+        if (validator.isNumeric(amount)) {
+            this.setState({ valueBtc: this.props.tobtc * amount, error: "" })
+        } else {
+            this.setState({ error: "Only numeric values allowed" })
+        }
     }
 
     render() {
@@ -62,6 +90,9 @@ class Converter extends React.Component {
                                 <Option value="gbp">GBP</Option>
                             </Select>
                         </Col>
+                    </Row>
+                    <Row>
+                        {this.state.error && <Typography.Text type="danger">Invalid input. Only numeric values allowed.</Typography.Text>}
                     </Row>
                 </Card>
             </Layout>
