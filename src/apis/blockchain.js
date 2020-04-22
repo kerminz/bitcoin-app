@@ -1,6 +1,9 @@
 import axios from 'axios';
 
-
-export default axios.create({
+export const blockchainBasic = axios.create({
     baseURL: 'https://blockchain.info'
+})
+
+export const blockchainChart = axios.create({
+    baseURL: 'https://api.blockchain.info/charts/'
 })

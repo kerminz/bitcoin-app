@@ -1,10 +1,10 @@
-import blockchain from '../apis/blockchain';
+import { blockchainChart, blockchainBasic } from '../apis/blockchain';
 import history from '../history';
 
 export const fetchTicker = () => {
     return async (dispatch) => {
         try {
-            const response = await blockchain.get('/ticker')
+            const response = await blockchainBasic.get('/ticker')
             dispatch({ type: 'FETCH_TICKER', payload: response.data })
         } catch (e) {
             console.log(e)
@@ -15,12 +15,12 @@ export const fetchTicker = () => {
 export const fetchDetails = () => {
     return async (dispatch) => {
         try {
-            const responseMarketcap = await blockchain.get('/q/marketcap')
-            const responseTotalbc = await blockchain.get('/q/totalbc')
-            const response24hrtransactioncount = await blockchain.get('/q/24hrtransactioncount')
-            const response24hrbtcsent = await blockchain.get('/q/24hrbtcsent')
-            const responseHashrate = await blockchain.get('/q/hashrate')
-            const responseGetdifficulty = await blockchain.get('/q/getdifficulty')
+            const responseMarketcap = await blockchainBasic.get('/q/marketcap')
+            const responseTotalbc = await blockchainBasic.get('/q/totalbc')
+            const response24hrtransactioncount = await blockchainBasic.get('/q/24hrtransactioncount')
+            const response24hrbtcsent = await blockchainBasic.get('/q/24hrbtcsent')
+            const responseHashrate = await blockchainBasic.get('/q/hashrate')
+            const responseGetdifficulty = await blockchainBasic.get('/q/getdifficulty')
 
             const divider = 100000000
             const data = {
@@ -41,8 +41,19 @@ export const fetchDetails = () => {
 export const fetchToBtc = (currency, amount) => {
     return async (dispatch) => {
         try {
-            const response = await blockchain.get(`/tobtc?currency=${currency}&value=${amount}`)
+            const response = await blockchainBasic.get(`/tobtc?currency=${currency}&value=${amount}`)
             dispatch({ type: 'FETCH_TOBTC', payload: response.data })
+        } catch (e) {
+            console.log(e)
+        }
+    }
+}
+
+export const fetchChartData = () => {
+    return async (dispatch) => {
+        try {
+            const response = await blockchainChart.get(`n-transactions?timespan=30days&sampled=true&metadata=false&cors=true&format=json`)
+            dispatch({ type: 'FETCH_CHART_DATA', payload: response.data })
         } catch (e) {
             console.log(e)
         }

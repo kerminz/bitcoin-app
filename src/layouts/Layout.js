@@ -31,8 +31,8 @@ class AppLayout extends React.Component {
         if (window.location.pathname.indexOf('converter') !== -1) {
             this.setState({ selected: 'converter' });
         }
-        if (window.location.pathname.indexOf('chart') !== -1) {
-            this.setState({ selected: 'chart' });
+        if (window.location.pathname.indexOf('charts') !== -1) {
+            this.setState({ selected: 'charts' });
         }
         if (window.location.pathname.indexOf('wallet') !== -1) {
             this.setState({ selected: 'wallet' });
@@ -75,10 +75,10 @@ class AppLayout extends React.Component {
                                 <span>Converter</span>
                             </NavLink>
                         </Menu.Item>
-                        <Menu.Item key="chart">
-                            <NavLink to="/chart">
+                        <Menu.Item key="charts">
+                            <NavLink to="/charts">
                                 <UploadOutlined />
-                                <span>Chart</span>
+                                <span>Charts</span>
                             </NavLink>
                         </Menu.Item>
                         <Menu.Item key="wallet">

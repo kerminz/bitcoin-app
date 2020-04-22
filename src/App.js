@@ -4,7 +4,7 @@ import history from './history'
 import Dashboard from './views/Dashboard'
 import BitcoinDetails from './views/BitcoinDetails'
 import Converter from './views/Converter'
-import Chart from './views/Chart'
+import Charts from './views/Charts'
 import Wallet from './views/Wallet'
 
 class App extends React.Component {
@@ -15,7 +15,7 @@ class App extends React.Component {
           <Route exact path="/" component={Dashboard} />
           <Route exact path="/details" component={BitcoinDetails} />
           <Route exact path="/converter" component={Converter} />
-          <Route exact path="/chart" component={Chart} />
+          <Route exact path="/charts" component={Charts} />
           <Route exact path="/wallet" component={Wallet} />
         </Switch>
       </Router>

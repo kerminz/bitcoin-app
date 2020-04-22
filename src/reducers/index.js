@@ -3,7 +3,8 @@ import { combineReducers } from 'redux';
 const INIT_STATES = {
     ticker: null,
     details: null,
-    tobtc: null
+    tobtc: null,
+    chartData: null
 }
 
 const appReducer = (state = INIT_STATES, action) => {
@@ -14,6 +15,8 @@ const appReducer = (state = INIT_STATES, action) => {
             return { ...state, details: action.payload }
         case 'FETCH_TOBTC':
             return { ...state, tobtc: action.payload }
+        case 'FETCH_CHART_DATA':
+            return { ...state, chartData: action.payload }
         default:
             return state
     }
