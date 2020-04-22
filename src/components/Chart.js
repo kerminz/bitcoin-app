@@ -3,6 +3,7 @@ import { Line } from 'react-chartjs-2'
 import { Card, Typography } from 'antd';
 import { connect } from 'react-redux'
 import { fetchChartData } from '../actions/index'
+import Loader from '../components/Loader'
 
 class Chart extends React.Component {
     constructor(props) {
@@ -11,7 +12,8 @@ class Chart extends React.Component {
             dataX: [],
             dataY: [],
             name: "",
-            description: ""
+            description: "",
+            loading: true
         }
     }
 
@@ -29,7 +31,15 @@ class Chart extends React.Component {
                 dataX.push(date)
                 dataY.push(value.y)
             })
-            this.setState({ dataX, dataY, name: this.props.chartData.name, description: this.props.chartData.description })
+            this.setState({
+                dataX,
+                dataY,
+                name: this.props.chartData.name,
+                description: this.props.chartData.description
+            })
+            setTimeout(() => {
+                this.setState({ loading: false })
+            }, 1500);
         })
     }
 
@@ -85,12 +95,13 @@ class Chart extends React.Component {
         }
 
         return (
-            this.props.chartData &&
-            <Card>
-                <Typography.Title level={3}>{this.state.name}</Typography.Title>
-                <Typography.Text>{this.state.description}</Typography.Text>
-                <Line data={data} options={options} />
-            </Card>
+            this.props.chartData && !this.state.loading ?
+                <Card>
+                    <Typography.Title level={3}>{this.state.name}</Typography.Title>
+                    <Typography.Text>{this.state.description}</Typography.Text>
+                    <Line data={data} options={options} />
+                </Card> :
+                <Loader />
         )
     }
 }
