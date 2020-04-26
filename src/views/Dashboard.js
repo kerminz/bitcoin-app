@@ -4,7 +4,7 @@ import { Table } from 'antd';
 import { connect } from 'react-redux'
 import { fetchTicker } from '../actions/index'
 import Loader from '../components/Loader'
-
+import MyWallet from '../components/MyWallet'
 
 class Dashboard extends React.Component {
     constructor(props) {
@@ -18,7 +18,6 @@ class Dashboard extends React.Component {
     componentDidMount() {
         this.props.fetchTicker().then((result) => {
             this.setState({ dataFetched: true })
-            //console.log(this.props.data.ticker)
             const keys = Object.keys(this.props.data.ticker)
             const values = Object.values(this.props.data.ticker)
             for (var i = 0; i < values.length; i++) {
@@ -29,7 +28,9 @@ class Dashboard extends React.Component {
                 this.setState({ loading: false })
             }, 1000);
         })
+
     }
+
 
     render() {
         function onChange(pagination, filters, sorter, extra) {
@@ -71,10 +72,8 @@ class Dashboard extends React.Component {
             }
         ];
 
-
-
         return (
-            <Layout title="Dashboard">
+            <Layout title="Dashboard" cta={<MyWallet />}>
                 {!this.state.loading ? <Table columns={columns} dataSource={this.state.data} onChange={onChange} /> : <Loader />}
             </Layout>
         )

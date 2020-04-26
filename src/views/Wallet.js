@@ -19,6 +19,7 @@ class Wallet extends React.Component {
         } else {
             var data = JSON.parse(localStorage.getItem('wallet')).reverse()
             this.props.updateWallet(data)
+            this.getTotalValue(data)
         }
 
         setTimeout(() => {
@@ -28,9 +29,19 @@ class Wallet extends React.Component {
         }, 1500)
     }
 
+    componentDidUpdate() {
+        this.getTotalValue(this.props.walletHistory)
+    }
+
+    getTotalValue = (data) => {
+        let sum = 0
+        data.forEach((dp) => {
+            sum += dp.value
+        })
+    }
+
     render() {
         const { initLoading } = this.state;
-
         return (
             <Layout title="My Wallet" cta={<AddToWallet />}>
                 <Card>
@@ -51,7 +62,7 @@ class Wallet extends React.Component {
                                         title={item.name}
                                         description="BTC"
                                     />
-                                    <Row style={{ minWidth: "200px", textAlign: "right" }}>
+                                    <Row style={{ width: "200px", textAlign: "right" }}>
                                         <Col span={16}><Typography.Title level={4} style={{ color: "#00d598" }}><strong>+{item.value} BTC</strong></Typography.Title></Col>
                                         <Col span={16}><Typography.Text type="secondary"> <Moment fromNow ago>{item.time}</Moment> ago</Typography.Text></Col>
                                     </Row>

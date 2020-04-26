@@ -97,7 +97,7 @@ const formik = withFormik({
         wallet: Yup.string().test(
             'is-decimal',
             'invalid decimal',
-            value => (value + "").match(/^[0-9]+(\,[0-9]{1,2})?$/),
+            value => (value + "").match(/^[0-9]+(\,[0-9]{1,9})?$/),
         ).required('Bitcoin amount is required.')
     }),
     handleSubmit: () => {

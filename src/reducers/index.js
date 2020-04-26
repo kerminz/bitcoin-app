@@ -6,9 +6,10 @@ const INIT_STATES = {
     tobtc: null,
     chartData: null,
     walletHistory: [
-        { name: "Bitcoin", value: 10.22, time: "Sun Apr 26 2020 16:25:47 GMT+0200 (Central European Summer Time)" },
-        { name: "Bitcoin", value: 13.22, time: "Sun Apr 14 2020 16:25:47 GMT+0200 (Central European Summer Time)" },
-    ]
+        { name: "Bitcoin", value: 1.22, time: "Sun Apr 26 2020 16:25:47 GMT+0200 (Central European Summer Time)" },
+        { name: "Bitcoin", value: 0.34, time: "Sun Apr 14 2020 16:25:47 GMT+0200 (Central European Summer Time)" },
+    ],
+    walletToal: "100"
 }
 
 const appReducer = (state = INIT_STATES, action) => {
