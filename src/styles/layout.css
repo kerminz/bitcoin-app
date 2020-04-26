@@ -23,3 +23,25 @@
   .site-layout .site-layout-background {
     background: #fff;
   }
+
+  .ant-drawer-header {
+    position: relative;
+    padding: 16px 24px;
+    color: #fff!important;
+    background: #001429!important;
+    border-bottom: 1px solid #e8e8e8!important;
+    border-radius: 0 0 0 0!important;
+    color: "#fff"
+}
+
+.ant-drawer-title {
+  margin: 0;
+  color: #fff;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.ant-drawer-close {
+  color: #fff; 
+}
