@@ -6,8 +6,10 @@ import {
     MenuUnfoldOutlined,
     MenuFoldOutlined,
     UserOutlined,
-    VideoCameraOutlined,
-    UploadOutlined,
+    DashboardOutlined,
+    DoubleRightOutlined,
+    LineChartOutlined,
+    RetweetOutlined
 } from '@ant-design/icons';
 import { NavLink, withRouter } from 'react-router-dom';
 
@@ -55,29 +57,29 @@ class AppLayout extends React.Component {
         return (
             <Layout>
                 <Sider trigger={null} collapsible collapsed={this.state.collapsed} >
-                    <div className="logo" />
+                    <Typography.Title level={2} style={{ color: "#fff", marginLeft: "2.3rem", marginTop: "1rem" }}>{!this.state.collapsed ? "Bitcoinzz" : "B."}</Typography.Title>
                     <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} selectedKeys={[this.state.selected]}>
                         <Menu.Item key="dashboard">
                             <NavLink to="/">
-                                <UserOutlined />
+                                <DashboardOutlined />
                                 <span>Dashboard</span>
                             </NavLink>
                         </Menu.Item>
                         <Menu.Item key="details">
                             <NavLink to="/details">
-                                <VideoCameraOutlined />
+                                <DoubleRightOutlined />
                                 <span>Bitcoin Details</span>
                             </NavLink>
                         </Menu.Item>
                         <Menu.Item key="converter">
                             <NavLink to="/converter">
-                                <UploadOutlined />
+                                <RetweetOutlined />
                                 <span>Converter</span>
                             </NavLink>
                         </Menu.Item>
                         <Menu.Item key="charts">
                             <NavLink to="/charts">
-                                <UploadOutlined />
+                                <LineChartOutlined />
                                 <span>Charts</span>
                             </NavLink>
                         </Menu.Item>

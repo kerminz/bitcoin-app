@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { Card, Row, Col, Input, Select, Typography } from 'antd'
 import { fetchToBtc } from '../actions/index'
 import validator from 'validator'
+import MyWallet from '../components/MyWallet'
 
 class Converter extends React.Component {
     constructor(props) {
@@ -67,7 +68,7 @@ class Converter extends React.Component {
         const { Option } = Select
 
         return (
-            <Layout title="Converter">
+            <Layout title="Converter" cta={<MyWallet />}>
                 <Card style={{ backgroundColor: "#f2f5fa", width: "900px", margin: "auto" }}>
                     <Typography.Paragraph>Bitcoin Calculator tool allows you to convert any amount to and from bitcoin.</Typography.Paragraph>
                     <br />

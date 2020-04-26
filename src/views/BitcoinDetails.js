@@ -4,6 +4,7 @@ import { Statistic, Card, Row, Col } from 'antd';
 import { connect } from 'react-redux'
 import { fetchDetails } from '../actions/index'
 import Loader from '../components/Loader'
+import MyWallet from '../components/MyWallet'
 
 class BitcoinDetails extends React.Component {
     constructor(props) {
@@ -67,7 +68,7 @@ class BitcoinDetails extends React.Component {
         )
 
         return (
-            <Layout title="Bitcoin Details">
+            <Layout title="Bitcoin Details" cta={<MyWallet />}>
                 {!this.state.loading ? <div>{content}</div> : <Loader />}
             </Layout>
         )
