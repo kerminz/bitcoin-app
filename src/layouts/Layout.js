@@ -105,9 +105,12 @@ class AppLayout extends React.Component {
                             height: "100vh"
                         }}
                     >
-                        <Title>{this.props.title}</Title>
-                        <Divider />
-                        {this.props.children}
+                        <div style={{ display: "flex" }}>
+                            <Title style={{ width: "90%" }}>{this.props.title}</Title>
+                            <div style={{ textAlign: "right", display: "inline", margin: "auto" }}>{this.props.cta}</div>
+                        </div>
+                        <Divider style={{ marginTop: "0.5rem" }} />
+                        <div>{this.props.children}</div>
                     </Content>
                 </Layout>
             </Layout>
