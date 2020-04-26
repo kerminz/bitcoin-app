@@ -64,3 +64,13 @@ export const fetchChartData = (mode, timespan) => {
         }
     }
 }
+
+export const updateWallet = (data) => {
+    return async (dispatch) => {
+        try {
+            dispatch({ type: 'WALLET_HISTORY', payload: data })
+        } catch (e) {
+            console.log(e)
+        }
+    }
+}

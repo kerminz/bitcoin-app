@@ -1,35 +1,35 @@
 import React from 'react';
 import Layout from '../layouts/Layout'
+import { connect } from 'react-redux';
 import AddToWallet from '../components/AddToWallet'
 import { List, Avatar, Card, Skeleton, Typography, Row, Col } from 'antd';
 import Moment from 'react-moment';
+import { updateWallet } from '../actions/index'
 
 class Wallet extends React.Component {
     state = {
         initLoading: true,
-        loading: false,
-        data: [],
-        list: [],
+        loading: false
     };
 
     componentDidMount() {
+        if (!localStorage.getItem('wallet')) {
+            var data = this.props.walletHistory
+            localStorage.setItem('wallet', JSON.stringify(data))
+        } else {
+            var data = JSON.parse(localStorage.getItem('wallet')).reverse()
+            this.props.updateWallet(data)
+        }
+
         setTimeout(() => {
             this.setState({
-                initLoading: false,
-                // data: res.results,
-                list: [
-                    { name: "Bitcoin", value: 10.22, time: "Sun Apr 26 2020 16:25:47 GMT+0200 (Central European Summer Time)" },
-                    { name: "Bitcoin", value: 13.22, time: "Sun Apr 14 2020 16:25:47 GMT+0200 (Central European Summer Time)" },
-                    { name: "Bitcoin", value: 13.22, time: "Sun Apr 13 2020 10:25:47 GMT+0200 (Central European Summer Time)" },
-                    { name: "Bitcoin", value: 25.00, time: "Sun Apr 01 2020 10:25:47 GMT+0200 (Central European Summer Time)" },
-                    { name: "Bitcoin", value: 104.41, time: "Sun Apr 20 2020 10:25:47 GMT+0200 (Central European Summer Time)" }
-                ],
+                initLoading: false
             });
         }, 1500)
     }
 
     render() {
-        const { initLoading, loading, list } = this.state;
+        const { initLoading } = this.state;
 
         return (
             <Layout title="My Wallet" cta={<AddToWallet />}>
@@ -38,7 +38,7 @@ class Wallet extends React.Component {
                         className="demo-loadmore-list"
                         loading={initLoading}
                         itemLayout="horizontal"
-                        dataSource={list}
+                        dataSource={this.props.walletHistory}
                         renderItem={item => (
                             <List.Item
                             //actions={[<a key="list-loadmore-edit">edit</a>, <a key="list-loadmore-more">more</a>]}
@@ -65,4 +65,10 @@ class Wallet extends React.Component {
     }
 }
 
-export default Wallet
+const mapPropsToState = (state) => {
+    return {
+        walletHistory: state.app.walletHistory
+    }
+}
+
+export default connect(mapPropsToState, { updateWallet })(Wallet)

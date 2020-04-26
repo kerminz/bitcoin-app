@@ -6,6 +6,7 @@ import { Button, Drawer, Divider } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { Form, Input } from "formik-antd";
 import Notification from './Notification'
+import { updateWallet } from '../actions/index'
 
 class AddToWallet extends React.Component {
     constructor(props) {
@@ -26,9 +27,16 @@ class AddToWallet extends React.Component {
     handleSave = (e) => {
         if (e.target.name === "save" && this.props.values.wallet.length !== 0 && !this.props.errors.wallet) {
             const walletValue = parseFloat(this.props.values.wallet.replace(',', '.').replace(' ', ''))
-            console.log(walletValue)
             Notification('Amount has been added successfully', `BTC Amount: "${this.props.values.wallet}" has been saved successfully.`, 'success')
             this.setState({ visible: false })
+            var data = JSON.parse(localStorage.getItem('wallet'))
+            data.push({
+                name: "Bitcoin",
+                value: walletValue,
+                time: new Date()
+            })
+            localStorage.setItem('wallet', JSON.stringify(data))
+            this.props.updateWallet(data.reverse())
             this.props.values.wallet = ""
         }
     }
@@ -79,7 +87,7 @@ const mapPropsToValues = ({ wallet }) => {
 
 const mapPropsToState = (state) => {
     return {
-        //account: state.account.isAuthenticated
+        walletHistory: state.app.walletHistory
     }
 }
 
@@ -97,4 +105,4 @@ const formik = withFormik({
     }
 })
 
-export default connect(mapPropsToState, {})(formik(AddToWallet))
+export default connect(mapPropsToState, { updateWallet })(formik(AddToWallet))
